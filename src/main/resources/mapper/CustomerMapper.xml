@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhoujie.shop.dao.CustomerDao">
+
+    <sql id="customerColumns">
+        id,name,login_name,password,phone,address,is_valid,register_date
+    </sql>
+    <resultMap id="customerResult" type="Customer">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="loginName" column="login_name"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="address" column="address"/>
+        <result property="isValid" column="is_valid"/>
+        <result property="registerDate" column="register_date"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="customerResult">
+        select <include refid="customerColumns"></include>
+        from t_customer
+    </select>
+
+    <!--多条件查询 name\loginName\phone\address\isValid-->
+    <select id="selectByParams" resultType="Customer" parameterType="Customer">
+        select <include refid="customerColumns"></include>
+        from t_customer
+        where 1=1
+        <if test="name!=null">
+            and name=#{name}
+        </if>
+        <if test="loginName!=null">
+            and login_name=#{loginName}
+        </if>
+        <if test="phone!=null">
+            and phone=#{phone}
+        </if>
+        <if test="address!=null">
+            and address=#{address}
+        </if>
+        <if test="isValid!=null">
+            and is_valid=#{isValid}
+        </if>
+
+    </select>
+    <!--由于id和订单表的customer_id关联了不能够删除 todo -->
+    <delete id="deleteById" parameterType="int">
+        delete from t_customer
+        where id=#{id}
+    </delete>
+</mapper>

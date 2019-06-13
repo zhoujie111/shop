@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhoujie.shop.dao.OrderDao">
+    <sql id="orderColumns">
+        id,
+        no,
+        price,
+        order_type,
+        customer_id,
+        create_date
+    </sql>
+
+    <resultMap id="orderResult" type="Order">
+        <id property="id" column="id"/>
+        <result property="no" column="no"/>
+        <result property="price" column="price"/>
+        <result property="orderType" column="order_type"/>
+        <result property="createDate" column="create_date"/>
+        <association property="customer" javaType="Customer" column="customer_id">
+            <id property="id" column="cu.id"/>
+            <result property="name" column="cu.name"/>
+            <result property="phone" column="cu.phone"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="orderResult1" type="Order">
+        <id property="id" column="id"/>
+        <result property="no" column="no"/>
+        <result property="price" column="price"/>
+        <result property="orderType" column="order_type"/>
+        <result property="createDate" column="create_date"/>
+        <association property="customer" javaType="Customer" column="customer_id">
+            <id property="id" column="cu.id"/>
+            <result property="name" column="cu.name"/>
+        </association>
+    </resultMap>
+    <select id="findAll" resultMap="orderResult">
+        select o.id,o.no,o.price,o.order_type,o.create_date,o.customer_id,cu.id 'cu.id',cu.name 'cu.name',cu.phone 'cu.phone'
+        from t_order o left join t_customer cu on o.customer_id = cu.id
+    </select>
+
+    <select id="findById" parameterType="int" resultMap="orderResult1">
+        select <include refid="orderColumns"></include>
+        from t_order
+        where id=#{id}
+    </select>
+</mapper>
