@@ -12,3 +12,5 @@ css+html+js（jQuery）+ajax+layer
 
 注解的使用：
 @InitBinder
+
+Github对项目的jar包有要求（会提示报错信息），需要比较新的版本！$$$
