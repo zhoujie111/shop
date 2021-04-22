@@ -20,7 +20,7 @@
     <spring.version>4.3.18.RELEASE</spring.version>
     <junit.version>4.11</junit.version>
     <mysql-connector-java.version>5.1.37</mysql-connector-java.version>
-    <mybatis.version>3.4.6</mybatis.version>
+    <mybatis.version>3.5.6</mybatis.version>
     <mybatis-spring.version>1.3.2</mybatis-spring.version>
     <druid.version>1.0.16</druid.version>
     <fastjson.version>1.2.54</fastjson.version>
